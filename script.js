@@ -114,7 +114,7 @@ angular.module('App', [
           if (res.data.exists) {
             return $q.reject();
           }
-          return $q.resolve();
+          return $q.when();
         });
       }; // end async
     } // end link
