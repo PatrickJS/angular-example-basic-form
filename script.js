@@ -1,6 +1,6 @@
 angular.module('App', [
   'ngMessages',
-  'fake-server'// ignore me 
+  'fake-server'  // ignore me 
 ])
 .controller('LoginController', function($scope, Auth, $window) {
 
@@ -21,7 +21,7 @@ angular.module('App', [
     form.$valid = true;
     form.$invalid = false;
     form.$error = {};
-  }
+  };
 
   $scope.submit = function(user, form) {
     $scope.loading = true;
@@ -29,8 +29,6 @@ angular.module('App', [
     .then(function(data) {
       $scope.reset(form);
       console.log('User Login', user);
-      // don't use alerts bro
-      $window.alert(user.name + 'thank you for signning up')
       // redirect etc
       // $state.go('app.home')
     })
@@ -62,12 +60,11 @@ angular.module('App', [
       .catch(function(res) {
         throw res.data;
       });
-    }
-  };
+    } // end return
+  }; // end return
+
 })
 .directive('matchPassword', function() {
-  // this is my module angular-password
-  // https://github.com/gdi2290/angular-password
   return {
     restrict: 'A',
     require: ['^ngModel', '^form'],
@@ -82,4 +79,45 @@ angular.module('App', [
 
     } // end link
   }; // end return
+})
+.directive('validatePasswordCharacters', function() {
+
+  var REQUIRED_PATTERNS = [
+    /\d+/,    //numeric values
+    /[a-z]+/, //lowercase values
+    /[A-Z]+/, //uppercase values
+    /\W+/,    //special characters
+    /^\S+$/   //no whitespace allowed
+  ];
+
+  return {
+    require : 'ngModel',
+    link : function($scope, element, attrs, ngModel) {
+      ngModel.$validators.passwordCharacters = function(value) {
+        var status = true;
+        angular.forEach(REQUIRED_PATTERNS, function(pattern) {
+          status = status && pattern.test(value);
+        });
+        return status;
+      }; 
+    } // end link
+  }; // end return
+
+})
+.directive('uniqueEmail', function($http, $q) {
+  return {
+    require : 'ngModel',
+    link : function($scope, element, attrs, ngModel) {
+      ngModel.$asyncValidators.uniqueEmail = function(modelValue, viewValue) {
+        var email = modelValue || viewValue;
+        return $http.post('/api/unique-email', {email: email}).then(function(res) {
+          if (res.data.exists) {
+            return $q.reject();
+          }
+          return $q.resolve();
+        });
+      }; // end async
+    } // end link
+  }; // end return 
+
 });
