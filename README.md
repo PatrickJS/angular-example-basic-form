@@ -238,3 +238,11 @@ angular.module('App', [
 
 });
 ```
+
+
+
+<br><br><br><br><br><br>
+
+[![AngularClass](https://angularclass.com/images/ng-crown.svg  "Angular Class")](https://angularclass.com)
+##[AngularClass](https://angularclass.com)
+> Learn Angular in 2 days from the best
