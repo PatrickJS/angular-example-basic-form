@@ -54,18 +54,18 @@
       <label>
         Password:
         <input type="password"
-          name="password"
+          name="userPassword"
           ng-model="user.password"
           ng-minlength="6"
           validate-password-characters
           required>
       </label>
-      <div ng-if="userForm.$submitted && userForm.password.$touched"
-           ng-messages="userForm.password.$error"
+      <div ng-if="userForm.$submitted && userForm.userPassword.$touched"
+           ng-messages="userForm.userPassword.$error"
            ng-messages-multiple>
         <div ng-message="required">You did not enter your password</div>
         <div ng-message="minlength">Your password is too short</div>
-        <div ng-message="passwordCharacters">Please use valid password characters, no whitespace allowed</div>
+        <div ng-message="passwordCharacters">Please use valid password characters</div>
       </div>
     </p>
       
@@ -75,7 +75,7 @@
         <input type="password"
           name="confirmPassword" 
           ng-model="confirmPassword"
-          match-password="password"
+          match-password="userPassword"
           validate-password-characters
           required>
       </label>
@@ -94,7 +94,7 @@
       
   </fieldset>
 </form>
- 
+<br>
 <center>		
   Example Built by <a href="https://twitter.com/gdi2290">@gdi2290</a>		
 </center>		
