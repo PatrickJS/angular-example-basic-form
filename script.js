@@ -29,6 +29,8 @@ angular.module('App', [
     .then(function(data) {
       $scope.reset(form);
       console.log('User Login', user);
+      // don't use alerts bro
+      $window.alert(user.name + 'thank you for signning up')
       // redirect etc
       // $state.go('app.home')
     })
@@ -64,6 +66,8 @@ angular.module('App', [
   };
 })
 .directive('matchPassword', function() {
+  // this is my module angular-password
+  // https://github.com/gdi2290/angular-password
   return {
     restrict: 'A',
     require: ['^ngModel', '^form'],
