@@ -77,7 +77,6 @@ angular.module('App', [
       ngModel.$validators.passwordMatch = function(modelValue, viewValue) {
         var password = modelValue || viewValue;
         var otherPassword = otherPasswordModel.$modelValue || otherPasswordModel.viewValue;
-        console.log('modelValue || viewValue', password, otherPassword);
         return password === otherPassword;
       };
 
@@ -102,7 +101,6 @@ angular.module('App', [
         angular.forEach(REQUIRED_PATTERNS, function(pattern) {
           status = status && pattern.test(value);
         });
-        console.log('can has ', status);
         return status;
       }; 
     } // end link
