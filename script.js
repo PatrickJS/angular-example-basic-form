@@ -29,6 +29,7 @@ angular.module('App', [
     .then(function(data) {
       $scope.reset(form);
       console.log('User Login', user);
+      $window.alert('Thanks you ' + user.email + ' for signing up');
       // redirect etc
       // $state.go('app.home')
     })
@@ -73,8 +74,11 @@ angular.module('App', [
       var ngModel = ctrls[0];
       var otherPasswordModel = formController[attrs.matchPassword];
   
-      ngModel.$validators.passwordMatch = function(modelValue) {
-        return (modelValue === otherPasswordModel.$modelValue);
+      ngModel.$validators.passwordMatch = function(modelValue, viewValue) {
+        var password = modelValue || viewValue;
+        var otherPassword = otherPasswordModel.$modelValue || otherPasswordModel.viewValue;
+        console.log('modelValue || viewValue', password, otherPassword);
+        return password === otherPassword;
       };
 
     } // end link
@@ -98,6 +102,7 @@ angular.module('App', [
         angular.forEach(REQUIRED_PATTERNS, function(pattern) {
           status = status && pattern.test(value);
         });
+        console.log('can has ', status);
         return status;
       }; 
     } // end link
