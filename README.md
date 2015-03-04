@@ -1,6 +1,7 @@
 # angular-example-basic-form
 An AngularJS example for a basic signup form example using ngMessages, $pending, $validators, $asyncValidators, ng-model-options, and match password
-[plunk](http://plnkr.co/edit/fIHr3BjcrfyPwodnRhrh?p=preview)
+
+[Edit via plunk](http://plnkr.co/edit/fIHr3BjcrfyPwodnRhrh?p=preview)
 
 ```html
 <!DOCTYPE html>
