@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="App">
+<html>
 <head>
-  <title>angular-example-basic-form</title>
+  
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-messages.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-mocks.js"></script>
@@ -9,9 +9,8 @@
   <script src="script.js"></script>
 
 </head>
-<body ng-controller="LoginController">
-<h1>angular-example-basic-form</h1>
-
+<body ng-app="App" ng-controller="LoginController">
+  
 <form autocomplete="off" novalidate
   name="userForm" 
   ng-submit="userForm.$valid && submit(user, userForm)"
@@ -28,16 +27,27 @@
       <label>
         Email:
         <input type="email" 
-          name="email"
+          name="userEmail"
           ng-model="user.email"
+          ng-model-options="{
+            updateOn: 'default blur',
+            debounce: {
+              'default': 500,
+              'blur': 0
+            }
+          }"
+          unique-email
+          autofocus
           required>
+        <small ng-show="userForm.userEmail.$pending.uniqueEmail">Valliding Email...</small>
       </label>
-      <div ng-if="userForm.$submitted && userForm.email.$touched"
-           ng-messages="userForm.email.$error"
+      <div ng-if="userForm.$submitted && userForm.userEmail.$touched"
+           ng-messages="userForm.userEmail.$error"
            ng-messages-multiple>
         <div ng-message="required">You did not enter your email address</div>
         <div ng-message="email">You did not enter a valid email address</div>
-      </div>    
+        <div ng-message="uniqueEmail">Your email address is already taken</div>
+      </div>
     </p>
 
     <p>
@@ -47,12 +57,15 @@
           name="password"
           ng-model="user.password"
           ng-minlength="6"
+          validate-password-characters
           required>
       </label>
       <div ng-if="userForm.$submitted && userForm.password.$touched"
-           ng-messages="userForm.password.$error">
+           ng-messages="userForm.password.$error"
+           ng-messages-multiple>
         <div ng-message="required">You did not enter your password</div>
         <div ng-message="minlength">Your password is too short</div>
+        <div ng-message="passwordCharacters">Please use valid password characters</div>
       </div>
     </p>
       
@@ -63,6 +76,7 @@
           name="confirmPassword" 
           ng-model="confirmPassword"
           match-password="password"
+          validate-password-characters
           required>
       </label>
       <div ng-if="userForm.$submitted && userForm.confirmPassword.$touched"
@@ -80,12 +94,8 @@
       
   </fieldset>
 </form>
-
-<center>
-  Example Built by <a href="https://twitter.com/gdi2290">@gdi2290</a>
-</center>
-<a href="https://github.com/gdi2290/angular-example-basic-form"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
  
 
 </body>
+
 </html>
