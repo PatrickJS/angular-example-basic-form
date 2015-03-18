@@ -29,7 +29,7 @@ angular.module('App', [
     .then(function(data) {
       $scope.reset(form);
       console.log('User Login', user);
-      $window.alert('Thanks you ' + user.email + ' for signing up');
+      $window.alert('Thank you ' + user.email + ' for signing up');
       // redirect etc
       // $state.go('app.home')
     })
